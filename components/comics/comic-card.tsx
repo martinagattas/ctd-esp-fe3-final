@@ -12,14 +12,14 @@ interface Props {
     comic: ComicType;
 }
 
-export const Comic: NextPage<Props> = ( {comic}:Props ) => {
+export const ComicCard: NextPage<Props> = ( {comic}:Props ) => {
     const router = useRouter();
 
     const handleDetail = () => {
         router.push(`/comics/${comic.id}`);
     }
 
-    const handleCart = () => {
+    const handleAddToCart = () => {
         router.push(`/checkout?comic=${comic.id}`);
     }
 
@@ -36,7 +36,7 @@ export const Comic: NextPage<Props> = ( {comic}:Props ) => {
             </CardContent>
             <CardActions>
                 <Button size="small" onClick={handleDetail}>Ver detalle</Button>
-                <Button size="small" onClick={handleCart}>Comprar</Button>
+                <Button size="small" onClick={handleAddToCart}>Comprar</Button>
             </CardActions>
         </Card>
     )

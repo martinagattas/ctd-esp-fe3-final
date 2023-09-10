@@ -2,14 +2,14 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { Comic as ComicsType } from 'dh-marvel/features/comics/comic.types';
-import { Comics } from 'dh-marvel/components/comics/comic-grid';
+import { ComicsGrid } from 'dh-marvel/components/comics/comic-grid';
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
 
 interface Props{
     comics: ComicsType[]
 }
 
-const Index: NextPage<Props> = ( {comics}:Props ) => {
+const IndexPage: NextPage<Props> = ( {comics}:Props ) => {
     return (
         <>
             <Head>
@@ -23,7 +23,7 @@ const Index: NextPage<Props> = ( {comics}:Props ) => {
             </Head>
 
             <BodySingle title={"Marvel comics"}>
-                <Comics comics={comics}></Comics>
+                <ComicsGrid comics={comics}></ComicsGrid>
             </BodySingle>
         </>
     )
@@ -44,4 +44,4 @@ export const getServerSideProps: GetServerSideProps = async ( { res, req } ) => 
     }
 }
 
-export default Index;
+export default IndexPage;
