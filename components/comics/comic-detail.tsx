@@ -1,0 +1,54 @@
+import { NextPage } from "next";
+import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
+import BodySingle from "../layouts/body/single/body-single";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Image from "next/image";
+import { useRouter } from "next/router";
+import CharactersList from "../characters/characters-list";
+
+interface Props {
+    comic: ComicType
+}
+
+export const ComicDetail: NextPage<Props> = ({ comic }: Props) => {
+    const router = useRouter();
+
+    const handleAddToCart = () => {
+        router.push(`/checkout?comic=${comic.id}`)
+    }
+
+    return (
+        <BodySingle>
+            <Grid container spacing={2} sx={{ margin: '0 !important', width: '100%' }}>
+                <Grid item xs={12} sm={6} sx={{ padding: '16px !important' }}>
+                    <Image
+                        src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                        alt={comic.title}
+                        width={500}
+                        height={500}
+                        layout="responsive"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6} sx={{ padding: '16px !important' }}>
+                    <Box>
+                        <Typography component="div" variant="subtitle1" color="text.secondary">Serie: {comic.series.name}</Typography>
+                        <Typography component="div" variant="h5">{comic.title}</Typography>
+                        {comic.description && <Typography component="div" variant="body1" color="text.secondary">{comic.description}</Typography>}
+                        <Typography component="div" variant="h4" color="primary" pt={1}>$ {comic.prices[0].price}</Typography>
+                    </Box>
+                    <Box mt={2} mb={2}>
+                        <Button variant="contained" onClick={handleAddToCart}>Comprar</Button>
+                    </Box>
+                    {comic.characters.items.length > 0 &&
+                        <Box>
+                            <CharactersList characters={comic.characters.items} />
+                        </Box>
+                    }
+                </Grid>
+            </Grid>
+        </BodySingle>
+    )
+}

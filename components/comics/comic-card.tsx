@@ -31,12 +31,12 @@ export const ComicCard: NextPage<Props> = ( {comic}:Props ) => {
                 height="140"
                 image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">{comic.title}</Typography>
+            <CardContent sx={{padding: '8px'}}>
+                <Typography gutterBottom variant="h5" component="div" mb={0}>{comic.title}</Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={handleDetail}>Ver detalle</Button>
-                <Button size="small" onClick={handleAddToCart}>Comprar</Button>
+                <Button size="small" variant="outlined" onClick={handleDetail}>Ver detalle</Button>
+                <Button size="small" variant="contained" onClick={handleAddToCart}>Comprar</Button>
             </CardActions>
         </Card>
     )
