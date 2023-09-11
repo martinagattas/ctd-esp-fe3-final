@@ -37,10 +37,16 @@ export const ComicDetail: NextPage<Props> = ({ comic }: Props) => {
                         <Typography component="div" variant="subtitle1" color="text.secondary">Serie: {comic.series.name}</Typography>
                         <Typography component="div" variant="h5">{comic.title}</Typography>
                         {comic.description && <Typography component="div" variant="body1" color="text.secondary">{comic.description}</Typography>}
-                        <Typography component="div" variant="h4" color="primary" pt={1}>$ {comic.prices[0].price}</Typography>
+                        {comic.oldPrice > comic.price &&
+                            <>
+                                <Typography component="div" variant="subtitle2" color="text.secondary" pt={1}>Antes: $ {comic.oldPrice}</Typography>
+                                <Typography component="div" variant="subtitle2" color="text.danger" pt={1}>{Math.floor(((comic.oldPrice - comic.price) / comic.oldPrice) * 100)}% Off</Typography>
+                            </>
+                        }
+                        <Typography component="div" variant="h4" color="primary" pt={1}>$ {comic.price}</Typography>
                     </Box>
                     <Box mt={2} mb={2}>
-                        <Button variant="contained" onClick={handleAddToCart}>Comprar</Button>
+                        <Button variant="contained" disabled={comic.stock <= 0} onClick={comic.stock > 0 ? () => handleAddToCart() : undefined}>{comic.stock > 0 ? 'Comprar' : 'Sin stock disponible'}</Button>
                     </Box>
                     {comic.characters.items.length > 0 &&
                         <Box>

@@ -23,7 +23,7 @@ export type Comic = {
     issueNumber: number,
     variantDescription: string,
     description: string,
-    modified: Date,
+    modified: string,
     isbn: string,
     upc: string,
     diamondCode: string,
@@ -45,7 +45,10 @@ export type Comic = {
     creators: CreatorsList,
     characters: CharactersList,
     stories: StoryList,
-    events: EventList
+    events: EventList,
+    price: number,
+    oldPrice: number,
+    stock: number
 }
 
 export type TextObject = {

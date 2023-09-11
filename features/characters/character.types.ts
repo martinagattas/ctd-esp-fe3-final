@@ -1,4 +1,4 @@
-import { ComicSummary, EventList, Image, StoryList, Url } from "../comics/comic.types"
+import { ComicSummary, EventList, Image, StoryList, Url } from "../comics/comic.types";
 
 export type Characters = {
     code: number,
@@ -22,7 +22,7 @@ export interface Character {
     id: number,
     name: string,
     description: string,
-    modified: Date,
+    modified: string,
     resourceURI: string,
     urls: Url[],
     thumbnail: Image,

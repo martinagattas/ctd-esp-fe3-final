@@ -23,7 +23,7 @@ const CharactersList: NextPage<Props> = ({ characters }: Props) => {
             </AccordionSummary>
             <AccordionDetails>
                 {characters.map((character) => (
-                    <Typography><Link href={`/personajes/${character.resourceURI.split('/').pop()}`}>{character.name}</Link></Typography>
+                    <Typography key={character.name}><Link href={`/personajes/${character.resourceURI.split('/').pop()}`}>{character.name}</Link></Typography>
                 ))}
             </AccordionDetails>
         </Accordion>
