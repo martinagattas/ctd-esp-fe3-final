@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
-import { ComicDetail } from "dh-marvel/components/comics/comic-detail";
+import { ComicDetail } from "dh-marvel/components/comics/comic-detail.component";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
 
 interface Props{

@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Image from "next/image";
 import { useRouter } from "next/router";
-import CharactersList from "../characters/characters-list";
+import CharactersList from "../characters/character-list.component";
 
 interface Props {
     comic: ComicType

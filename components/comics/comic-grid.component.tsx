@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { Comic as ComicsType } from "dh-marvel/features/comics/comic.types";
 import Grid from '@mui/material/Grid';
-import { ComicCard } from "./comic-card";
+import { ComicCard } from "./comic-card.component";
 
 interface Props {
     comics: ComicsType[];

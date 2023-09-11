@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { Character as CharacterType } from "dh-marvel/features/comics/character.types";
+import { Character as CharacterType } from "dh-marvel/features/characters/character.types";
 import BodySingle from "../layouts/body/single/body-single";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';

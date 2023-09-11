@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
-import { Character as CharacterType } from "dh-marvel/features/comics/character.types";
-import { CharacterDetail } from "dh-marvel/components/characters/character-detail";
+import { Character as CharacterType } from "dh-marvel/features/characters/character.types";
+import { CharacterDetail } from "dh-marvel/components/characters/character-detail.component";
 import { getCharacter } from "dh-marvel/services/marvel/marvel.service";
 
 interface Props {
