@@ -20,7 +20,7 @@ export const ComicCard: NextPage<Props> = ( {comic}:Props ) => {
     }
 
     const handleAddToCart = () => {
-        router.push(`/checkout?comic=${comic.id}`);
+        router.push(`/checkout/${comic.id}`);
     }
 
     return(
