@@ -19,4 +19,5 @@ const LayoutCheckout: FC<PropsWithChildren> = ({children}: PropsWithChildren) =>
         </>
     );
 };
+
 export default LayoutCheckout;
