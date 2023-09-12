@@ -35,7 +35,6 @@ const CustomInput = ({
                 <TextField
                     variant="outlined"
                     fullWidth
-                    sx={{ mb: 2 }}
                     {...field}
                     label={label}
                     type={type}
