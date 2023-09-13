@@ -5,6 +5,7 @@ import DeliveryAddress from "./steps/delivery-address.component";
 import PaymentData from "./steps/payment-data.component";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import FormStepper from "./stepper/stepper.component";
 
 const Form = () => {
     const { handleSubmit } = useFormContext();
@@ -32,16 +33,19 @@ const Form = () => {
     }
 
     return(
-        <form onSubmit={handleSubmit(onSubmit)}>
-            {activeStep === 1 && <PersonalData />}
-            {activeStep === 2 && <DeliveryAddress/>}
-            {activeStep === 3 && <PaymentData/>}
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                {activeStep > 1 && <Button variant="outlined" onClick={handlePrevStep}>Anterior</Button>}
-                {activeStep < 3 && <Button variant="outlined" onClick={handleNextStep}>Siguiente</Button>}
-                {activeStep === 3 && <Button variant="contained" type="submit" onClick={handleNextStep}>Enviar</Button>}
-            </Box>
-        </form>
+        <>
+            <FormStepper activeStep={activeStep - 1}></FormStepper>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                {activeStep === 1 && <PersonalData />}
+                {activeStep === 2 && <DeliveryAddress />}
+                {activeStep === 3 && <PaymentData />}
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    {activeStep > 1 && <Button variant="outlined" onClick={handlePrevStep}>Anterior</Button>}
+                    {activeStep < 3 && <Button variant="outlined" onClick={handleNextStep}>Siguiente</Button>}
+                    {activeStep === 3 && <Button variant="contained" type="submit" onClick={handleNextStep}>Enviar</Button>}
+                </Box>
+            </form>
+        </>
     )
 }
 
