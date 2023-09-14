@@ -1,16 +1,41 @@
 import { useState } from "react";
-import { useFormContext } from "react-hook-form";
 import PersonalData from "./steps/personal-data.component";
 import DeliveryAddress from "./steps/delivery-address.component";
 import PaymentData from "./steps/payment-data.component";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import FormStepper from "./stepper/stepper.component";
+import { useForm } from "react-hook-form";
 
-const Form = () => {
-    const { handleSubmit } = useFormContext();
+const initialData = {
+    personalData: {
+        name: "",
+        lastName: "",
+        email: "",
+    },
+    deliveryAddress: {
+        address: "",
+        apartment: "",
+        city: "",
+        province: "",
+        zipCode: "",
+    },
+    paymentData: {
+        cardNumber: "",
+        cardName: "",
+        expirationDate: "",
+        securityCode: "",
+    }
+};
+
+const FormManager = () => {
+    const { handleSubmit } = useForm();
+
+    const [ data, setData ] = useState(initialData);
+
+    const handleData = (newData: any) => {
+        setData((prevData) => ({ ...prevData, ...newData }));
+    };
+
     const [ activeStep, setActiveStep ] = useState(1);
-    const [ data, setData ] = useState();
 
     const handleNextStep = () => {
         if(activeStep >= 3){
@@ -28,25 +53,22 @@ const Form = () => {
         }
     }
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const submitData = async () => {
+        try{
+            console.log('FINAL SUBMIT');
+        } catch{
+            // agregar snackbar
+        }
     }
 
     return(
         <>
             <FormStepper activeStep={activeStep - 1}></FormStepper>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {activeStep === 1 && <PersonalData />}
-                {activeStep === 2 && <DeliveryAddress />}
-                {activeStep === 3 && <PaymentData />}
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    {activeStep > 1 && <Button variant="outlined" onClick={handlePrevStep}>Anterior</Button>}
-                    {activeStep < 3 && <Button variant="outlined" onClick={handleNextStep}>Siguiente</Button>}
-                    {activeStep === 3 && <Button variant="contained" type="submit" onClick={handleNextStep}>Enviar</Button>}
-                </Box>
-            </form>
+            {activeStep === 1 && <PersonalData data={data.personalData} updateData={handleData} handleNextStep={handleNextStep} activeStep={activeStep} />}
+            {activeStep === 2 && <DeliveryAddress data={data.deliveryAddress} updateData={handleData} handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} activeStep={activeStep} />}
+            {activeStep === 3 && <PaymentData data={data.paymentData} updateData={handleData} handlePrevStep={handlePrevStep} activeStep={activeStep} />}
         </>
     )
 }
 
-export default Form;
+export default FormManager;

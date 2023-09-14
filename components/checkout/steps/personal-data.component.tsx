@@ -1,14 +1,41 @@
+import { NextPage } from "next";
 import CustomInput from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useFormContext } from "react-hook-form";
+import Button from "@mui/material/Button";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { schema } from "../../../components/checkout/rules";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from '@hookform/error-message';
 
-const PersonalData = () => {
-    const {control, formState:{errors}} = useFormContext();
+interface Props{
+    data: any,
+    updateData: (newData: any) => void,
+    handleNextStep: () => void,
+    activeStep: number
+}
+
+const PersonalData = ({ data, updateData, handleNextStep, activeStep }:Props ) => {
+    type DataForm = yup.InferType<typeof schema>
+
+    const {
+        control,
+        register,
+        formState: { errors },
+        handleSubmit,
+        getValues,
+    } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
+
+    const onSubmit = async (data: any) => {
+        console.log("Submit clicked");
+        const dataValues = getValues();
+        updateData({ personalData: dataValues });
+        handleNextStep()
+    };
 
     return (
-        <>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant="h5" mb={2}>Datos personales</Typography>
             <Box mb={2}>
                 <CustomInput
@@ -16,7 +43,7 @@ const PersonalData = () => {
                     name="name"
                     label="Nombre"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.name}
                     placeholder="Ej: María"
                 />
                 <Typography variant="caption" color="red">
@@ -29,7 +56,7 @@ const PersonalData = () => {
                     name="lastName"
                     label="Apellido"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.lastName}
                     placeholder="Ej: Pérez"
                 />
                 <Typography variant="caption" color="red">
@@ -42,14 +69,17 @@ const PersonalData = () => {
                     name="email"
                     label="Email"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.email}
                     placeholder="Ej: mail@ejemplo.com"
                 />
                 <Typography variant="caption" color="red">
                     <ErrorMessage errors={errors} name="email" />
                 </Typography>
             </Box>
-        </>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Button variant="outlined" type="submit">Siguiente</Button>
+            </Box>
+        </form>
     );
 };
 

@@ -1,14 +1,41 @@
+import { NextPage } from "next";
 import CustomInput from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useFormContext } from "react-hook-form";
+import Button from "@mui/material/Button";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { schema } from "../../../components/checkout/rules";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from '@hookform/error-message';
+import { useRouter } from "next/router";
 
-const PaymentData = () => {
-    const { control, formState: { errors } } = useFormContext();
+interface Props {
+    data: any,
+    updateData: (newData: any) => void,
+    handlePrevStep: () => void,
+    activeStep: number
+}
+
+const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, activeStep }: Props) => {
+    const router = useRouter();
+
+    type DataForm = yup.InferType<typeof schema>
+
+    const {
+        control,
+        register,
+        formState: { errors },
+        handleSubmit,
+        getValues,
+    } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
+
+    const onSubmit = async (data: any) => {
+        router.push(`/`);
+    };
 
     return (
-        <>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant="h5" mb={2}>Datos de pago</Typography>
             <Box mb={2}>
                 <CustomInput
@@ -61,7 +88,11 @@ const PaymentData = () => {
                     <ErrorMessage errors={errors} name="securityCode" />
                 </Typography>
             </Box>
-        </>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Button variant="outlined" onClick={handlePrevStep}>Anterior</Button>
+                <Button variant="contained" type="submit">Enviar</Button>
+            </Box>
+        </form>
     );
 };
 
