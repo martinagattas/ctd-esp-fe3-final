@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { schema } from "../../../components/checkout/rules";
+import { schema } from "../../../components/checkout/rules/delivery-address-rules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -17,7 +17,7 @@ interface Props {
     activeStep: number
 }
 
-const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, handlePrevStep, activeStep }:Props ) => {
+const DeliveryAddress = ({ data, updateData, handleNextStep, handlePrevStep, activeStep }:Props ) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {
@@ -29,6 +29,8 @@ const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, ha
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
 
     const onSubmit = async (data: any) => {
+        const dataValues = getValues();
+        updateData({ deliveryAddress: dataValues });
         handleNextStep()
     };
 
@@ -41,7 +43,7 @@ const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, ha
                     name="address"
                     label="Dirección"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.address}
                     placeholder="Ej: Cerro Nevado"
                 />
                 <Typography variant="caption" color="red">
@@ -54,7 +56,7 @@ const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, ha
                     name="apartment"
                     label="Departamento / Piso"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.apartment}
                     placeholder="Ej: Dto 3, Piso 5"
                 />
                 <Typography variant="caption" color="red">
@@ -67,7 +69,7 @@ const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, ha
                     name="city"
                     label="Ciudad"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.city}
                     placeholder="Ej: Mendoza"
                 />
                 <Typography variant="caption" color="red">
@@ -80,7 +82,7 @@ const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, ha
                     name="province"
                     label="Provincia"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.province}
                     placeholder="Ej: Mendoza"
                 />
                 <Typography variant="caption" color="red">
@@ -93,7 +95,7 @@ const DeliveryAddress: NextPage<Props> = ({ data, updateData, handleNextStep, ha
                     name="zipCode"
                     label="Código Postal"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.zipCode}
                     placeholder="Ej: 5501"
                 />
                 <Typography variant="caption" color="red">

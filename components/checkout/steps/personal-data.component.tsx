@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { schema } from "../../../components/checkout/rules";
+import { schema } from "../../../components/checkout/rules/personal-data-rules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -28,7 +28,6 @@ const PersonalData = ({ data, updateData, handleNextStep, activeStep }:Props ) =
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
 
     const onSubmit = async (data: any) => {
-        console.log("Submit clicked");
         const dataValues = getValues();
         updateData({ personalData: dataValues });
         handleNextStep()

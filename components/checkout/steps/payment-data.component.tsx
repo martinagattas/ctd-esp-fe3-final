@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { schema } from "../../../components/checkout/rules";
+import { schema } from "../../../components/checkout/rules/payment-data-rules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from '@hookform/error-message';
 import { useRouter } from "next/router";
@@ -14,10 +14,11 @@ interface Props {
     data: any,
     updateData: (newData: any) => void,
     handlePrevStep: () => void,
-    activeStep: number
+    activeStep: number,
+    submitData: () => void
 }
 
-const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, activeStep }: Props) => {
+const PaymentData = ({ data, updateData, handlePrevStep, activeStep, submitData }: Props) => {
     const router = useRouter();
 
     type DataForm = yup.InferType<typeof schema>
@@ -31,7 +32,9 @@ const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, active
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
 
     const onSubmit = async (data: any) => {
-        router.push(`/`);
+        const dataValues = getValues();
+        updateData({ paymentData: dataValues });
+        submitData();
     };
 
     return (
@@ -43,8 +46,8 @@ const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, active
                     name="cardNumber"
                     label="Número de tarjeta"
                     control={control}
-                    defaultValue=""
-                    placeholder="Ingresa los números que aparecen en el frente de tu tarjeta"
+                    defaultValue={data.cardNumber}
+                    placeholder="XXXX XXXX XXXX XXXX"
                 />
                 <Typography variant="caption" color="red">
                     <ErrorMessage errors={errors} name="cardNumber" />
@@ -56,8 +59,8 @@ const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, active
                     name="cardName"
                     label="Nombre del titular"
                     control={control}
-                    defaultValue=""
-                    placeholder="Ingresa el nombre tal cual aparece en tu tarjeta"
+                    defaultValue={data.cardName}
+                    placeholder="Ej. MARÍA PÉREZ"
                 />
                 <Typography variant="caption" color="red">
                     <ErrorMessage errors={errors} name="cardName" />
@@ -65,11 +68,12 @@ const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, active
             </Box>
             <Box mb={2}>
                 <CustomInput
-                    type="date"
+                    type="text"
                     name="expirationDate"
                     label="Fecha de vencimiento"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.expirationDate}
+                    placeholder="MM/AA"
                 />
                 <Typography variant="caption" color="red">
                     <ErrorMessage errors={errors} name="expirationDate" />
@@ -81,7 +85,7 @@ const PaymentData: NextPage<Props> = ({ data, updateData, handlePrevStep, active
                     name="securityCode"
                     label="Código de seguridad"
                     control={control}
-                    defaultValue=""
+                    defaultValue={data.securityCode}
                     placeholder="···"
                 />
                 <Typography variant="caption" color="red">

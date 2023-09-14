@@ -17,7 +17,7 @@ const Checkout: NextPage<Props> = ( { comic }:Props ) => {
                 <CartDetail comic={comic}></CartDetail>
             </Grid>
             <Grid item xs={12} sm={6} sx={{padding: '16px'}}>
-                <FormManager />
+                <FormManager comic={comic}/>
             </Grid>
         </Grid>
     )
