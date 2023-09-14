@@ -12,8 +12,8 @@ const FaqsPage: NextPage<Props> = ( { faqs }:Props ) => {
     return(
         <>
             <Head>
-                <title>Marvel comics</title>
-                <meta property="og:title" content="Marvel comics" key="title"></meta>
+                <title>Marvel comics - FAQs</title>
+                <meta property="og:title" content="Marvel comics - FAQs" key="title"></meta>
                 <meta name="description" content="Explore our Marvel's comics store" />
                 <meta charSet="utf-8" />
                 <meta name="Marvel, comics, comic, store, buy comics, comics store" />

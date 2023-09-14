@@ -9,12 +9,13 @@ interface Props {
 }
 
 const CharactersPage: NextPage<Props> = ({ character }: Props) => {
+    console.log('ACÁ', character);
     return (
         <>
             <Head>
-                <title>Marvel comics</title>
-                <meta property="og:title" content="Marvel comics" key="title"></meta>
-                <meta name="description" content="Explore our Marvel's comics store"/>
+                <title>{character.name}</title>
+                <meta property="og:title" content={character.name} key="title"></meta>
+                <meta name="description" content={character.description} />
                 <meta charSet="utf-8"/>
                 <meta name="Marvel, comics, comic, store, buy comics, comics store"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
