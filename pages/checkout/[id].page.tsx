@@ -1,9 +1,9 @@
-import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
-import { CartDetail } from "dh-marvel/components/checkout/cart-detail.component";
-import FormManager from "dh-marvel/components/checkout/form.component";
+import { Comic as ComicType } from "types/comic.types";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
+import { CartDetail } from "dh-marvel/components/checkout/cart-detail.component";
+import { FormManager } from "dh-marvel/components/checkout/form.component";
 import Grid from '@mui/material/Grid';
 
 interface Props{

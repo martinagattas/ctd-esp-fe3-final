@@ -1,15 +1,28 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
-import { ComicDetail } from "dh-marvel/components/comics/comic-detail.component";
+import Head from 'next/head';
+import { Comic as ComicType } from "types/comic.types";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
+import { ComicDetail } from "dh-marvel/components/comics/comic-detail.component";
 
 interface Props{
-    comic: ComicType;
+    comic: ComicType
 }
 
 const ComicsPage: NextPage<Props> = ( { comic }:Props ) => {
     return(
-        <ComicDetail comic={comic}></ComicDetail>
+        <>
+            <Head>
+                <title>Marvel comics</title>
+                <meta property="og:title" content="Marvel comics" key="title"></meta>
+                <meta name="description" content="Explore our Marvel's comics store"/>
+                <meta charSet="utf-8"/>
+                <meta name="Marvel, comics, comic, store, buy comics, comics store"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+                <link rel="icon" href="/favicon.ico"/>
+            </Head>
+
+            <ComicDetail comic={comic}></ComicDetail>
+        </>
     )
 }
 

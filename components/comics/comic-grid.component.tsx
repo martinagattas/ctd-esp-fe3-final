@@ -1,13 +1,13 @@
-import { NextPage } from "next";
-import { Comic as ComicsType } from "dh-marvel/features/comics/comic.types";
-import Grid from '@mui/material/Grid';
+import { FC } from "react";
 import { ComicCard } from "./comic-card.component";
+import { Comic as ComicsType } from "types/comic.types";
+import Grid from '@mui/material/Grid';
 
 interface Props {
-    comics: ComicsType[];
+    comics: ComicsType[]
 }
 
-export const ComicsGrid: NextPage<Props> = ({ comics }: Props) => {
+export const ComicsGrid: FC<Props> = ({ comics }: Props) => {
     return (
         <Grid container spacing={2}>
             {comics?.map((comic) => (

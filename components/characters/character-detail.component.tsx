@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import { Character as CharacterType } from "dh-marvel/features/characters/character.types";
+import { FC } from "react";
+import { Character as CharacterType } from "types/character.types";
 import BodySingle from "../layouts/body/single/body-single";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ interface Props {
     character: CharacterType
 }
 
-export const CharacterDetail: NextPage<Props> = ({ character }: Props) => {
+export const CharacterDetail: FC<Props> = ({ character }: Props) => {
     return (
         <BodySingle>
             <Grid container spacing={2} sx={{ margin: '0 !important', width: '100%' }}>

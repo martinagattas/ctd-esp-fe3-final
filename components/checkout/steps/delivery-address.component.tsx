@@ -1,4 +1,5 @@
-import CustomInput from "../inputs/custom-input.components";
+import { FC } from "react";
+import { CustomInput } from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -15,7 +16,7 @@ interface Props {
     handlePrevStep: () => void
 }
 
-const DeliveryAddress = ({ data, updateData, handleNextStep, handlePrevStep }:Props ) => {
+export const DeliveryAddress: FC<Props> = ({ data, updateData, handleNextStep, handlePrevStep }:Props ) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {
@@ -107,5 +108,3 @@ const DeliveryAddress = ({ data, updateData, handleNextStep, handlePrevStep }:Pr
         </form>
     );
 };
-
-export default DeliveryAddress;

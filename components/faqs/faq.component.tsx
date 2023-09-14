@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import { FaqsType } from "./faqsData";
+import { FC } from "react";
+import { Faqs } from "types/faqs.types";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface Props{
-    faq: FaqsType;
+    faq: Faqs
 }
 
-const Faq: NextPage<Props> = ( { faq }:Props ) => {
+export const Faq: FC<Props> = ( { faq }:Props ) => {
     return(
         <Accordion key={faq.id}>
             <AccordionSummary
@@ -26,5 +26,3 @@ const Faq: NextPage<Props> = ( { faq }:Props ) => {
         </Accordion>
     )
 }
-
-export default Faq;

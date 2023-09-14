@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
+import { FC } from "react";
+import { Comic as ComicType } from "types/comic.types";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Image from "next/image";
@@ -8,7 +8,7 @@ interface Props {
     comic: ComicType
 }
 
-export const CartDetail: NextPage<Props> = ({ comic }: Props) => {
+export const CartDetail: FC<Props> = ({ comic }: Props) => {
     return (<Box sx={{display: 'flex', gap: '8px'}}>
         <Image
             src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}

@@ -1,5 +1,5 @@
-import CustomInput from "../inputs/custom-input.components";
-import Box from "@mui/material/Box";
+import { FC } from "react";
+import { CustomInput } from "../inputs/custom-input.components"; import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ interface Props{
     handleNextStep: () => void
 }
 
-const PersonalData = ({ data, updateData, handleNextStep }:Props ) => {
+export const PersonalData: FC<Props> = ({ data, updateData, handleNextStep }:Props ) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {
@@ -79,5 +79,3 @@ const PersonalData = ({ data, updateData, handleNextStep }:Props ) => {
         </form>
     );
 };
-
-export default PersonalData;

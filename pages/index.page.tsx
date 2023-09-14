@@ -1,9 +1,9 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import { Comic as ComicsType } from 'dh-marvel/features/comics/comic.types';
-import { ComicsGrid } from 'dh-marvel/components/comics/comic-grid.component';
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
+import { Comic as ComicsType } from 'types/comic.types';
+import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
+import { ComicsGrid } from 'dh-marvel/components/comics/comic-grid.component';
 
 interface Props{
     comics: ComicsType[]

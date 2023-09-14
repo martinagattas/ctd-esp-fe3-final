@@ -1,4 +1,5 @@
-import CustomInput from "../inputs/custom-input.components";
+import { FC } from "react";
+import { CustomInput } from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -14,7 +15,7 @@ interface Props {
     submitData: (data:any) => void
 }
 
-const PaymentData = ({ data, handlePrevStep, submitData }: Props) => {
+export const PaymentData: FC<Props> = ({ data, handlePrevStep, submitData }: Props) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {
@@ -92,5 +93,3 @@ const PaymentData = ({ data, handlePrevStep, submitData }: Props) => {
         </form>
     );
 };
-
-export default PaymentData;

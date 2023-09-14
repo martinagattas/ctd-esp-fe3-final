@@ -1,7 +1,8 @@
-import { faqsData, FaqsType } from 'dh-marvel/components/faqs/faqsData';
+import { faqsData } from 'dh-marvel/components/faqs/faqsData';
+import { Faqs } from 'types/faqs.types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = FaqsType[] | { message: string }
+type Data = Faqs[] | { message: string }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method == 'GET') {

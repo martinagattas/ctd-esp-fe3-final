@@ -1,4 +1,4 @@
-import { ComicSummary, EventList, Image, StoryList, Url } from "../comics/comic.types";
+import { ComicSummary, EventList, Image, StoryList, Url } from "./comic.types";
 
 export type Characters = {
     code: number,

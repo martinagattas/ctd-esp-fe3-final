@@ -1,10 +1,6 @@
-export type FaqsType = {
-    id: number,
-    question: string,
-    answer: string,
-}
+import { Faqs } from "types/faqs.types"
 
-export const faqsData: FaqsType[] = [
+export const faqsData: Faqs[] = [
     {
         "id": 1,
         "question": "¿Cuántos comics tienen?",

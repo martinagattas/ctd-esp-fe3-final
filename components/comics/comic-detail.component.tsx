@@ -1,19 +1,19 @@
-import { NextPage } from "next";
-import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
+import { FC } from "react";
+import { useRouter } from "next/router";
+import { CharactersList } from "../characters/character-list.component";
+import { Comic as ComicType } from "types/comic.types";
 import BodySingle from "../layouts/body/single/body-single";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Image from "next/image";
-import { useRouter } from "next/router";
-import CharactersList from "../characters/character-list.component";
 
 interface Props {
     comic: ComicType
 }
 
-export const ComicDetail: NextPage<Props> = ({ comic }: Props) => {
+export const ComicDetail: FC<Props> = ({ comic }: Props) => {
     const router = useRouter();
 
     const handleAddToCart = () => {

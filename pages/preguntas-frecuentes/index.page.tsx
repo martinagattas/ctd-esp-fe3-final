@@ -1,19 +1,32 @@
 import { GetStaticProps, NextPage } from "next";
-import { FaqsType } from "dh-marvel/components/faqs/faqsData";
+import Head from 'next/head';
+import { Faqs } from "types/faqs.types";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import Faq from "dh-marvel/components/faqs/faq.component";
+import { Faq } from "dh-marvel/components/faqs/faq.component";
 
 interface Props{
-    faqs: FaqsType[];
+    faqs: Faqs[]
 }
 
 const FaqsPage: NextPage<Props> = ( { faqs }:Props ) => {
     return(
-        <BodySingle title={"Preguntas frecuentes"}>
-            {faqs?.map((faq) => (
-                <Faq faq={faq}></Faq>
-            ))}
-        </BodySingle>
+        <>
+            <Head>
+                <title>Marvel comics</title>
+                <meta property="og:title" content="Marvel comics" key="title"></meta>
+                <meta name="description" content="Explore our Marvel's comics store" />
+                <meta charSet="utf-8" />
+                <meta name="Marvel, comics, comic, store, buy comics, comics store" />
+                <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
+            <BodySingle title={"Preguntas frecuentes"}>
+                {faqs?.map((faq) => (
+                    <Faq faq={faq}></Faq>
+                ))}
+            </BodySingle>
+        </>
     )
 }
 

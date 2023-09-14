@@ -1,7 +1,8 @@
 import { GetServerSideProps, NextPage } from "next";
-import { Character as CharacterType } from "dh-marvel/features/characters/character.types";
-import { CharacterDetail } from "dh-marvel/components/characters/character-detail.component";
+import Head from 'next/head';
 import { getCharacter } from "dh-marvel/services/marvel/marvel.service";
+import { Character as CharacterType } from "types/character.types";
+import { CharacterDetail } from "dh-marvel/components/characters/character-detail.component";
 
 interface Props {
     character: CharacterType
@@ -9,7 +10,19 @@ interface Props {
 
 const CharactersPage: NextPage<Props> = ({ character }: Props) => {
     return (
-        <CharacterDetail character={character}></CharacterDetail>
+        <>
+            <Head>
+                <title>Marvel comics</title>
+                <meta property="og:title" content="Marvel comics" key="title"></meta>
+                <meta name="description" content="Explore our Marvel's comics store"/>
+                <meta charSet="utf-8"/>
+                <meta name="Marvel, comics, comic, store, buy comics, comics store"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+                <link rel="icon" href="/favicon.ico"/>
+            </Head>
+
+            <CharacterDetail character={character}></CharacterDetail>
+        </>
     )
 }
 

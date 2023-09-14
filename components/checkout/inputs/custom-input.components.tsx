@@ -1,20 +1,8 @@
+import { CustomInput as CustomInputType } from 'types/custom-input.types';
+import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
-import { Control, Controller } from 'react-hook-form';
 
-interface Props {
-    name: string,
-    label: string,
-    type: string,
-    required?: boolean,
-    control: Control<any>,
-    placeholder?: string,
-    defaultValue?: string,
-    error?: boolean,
-    errorMessage?: string,
-    textFieldProps?: Record<string, any>
-}
-
-const CustomInput = ({
+export const CustomInput = ({
     name,
     label,
     type,
@@ -25,7 +13,7 @@ const CustomInput = ({
     error,
     errorMessage,
     textFieldProps
-}: Props) => {
+}: CustomInputType) => {
     return (
         <Controller
             name={name}
@@ -48,5 +36,3 @@ const CustomInput = ({
         />
     );
 }
-
-export default CustomInput;

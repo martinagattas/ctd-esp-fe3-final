@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import { CharacterSummary } from "dh-marvel/features/comics/comic.types";
+import { FC } from "react";
+import { CharacterSummary } from "types/comic.types";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -8,10 +8,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Link from "next/link";
 
 interface Props {
-    characters: CharacterSummary[];
+    characters: CharacterSummary[]
 }
 
-const CharactersList: NextPage<Props> = ({ characters }: Props) => {
+export const CharactersList: FC<Props> = ({ characters }: Props) => {
     return (
         <Accordion>
             <AccordionSummary
@@ -29,5 +29,3 @@ const CharactersList: NextPage<Props> = ({ characters }: Props) => {
         </Accordion>
     )
 }
-
-export default CharactersList;

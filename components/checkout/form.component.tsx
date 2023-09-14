@@ -1,10 +1,10 @@
-import { useState } from "react";
-import PersonalData from "./steps/personal-data.component";
-import DeliveryAddress from "./steps/delivery-address.component";
-import PaymentData from "./steps/payment-data.component";
-import FormStepper from "./stepper/stepper.component";
+import { FC, useState } from "react";
+import { PersonalData } from "./steps/personal-data.component";
+import { DeliveryAddress } from "./steps/delivery-address.component";
+import { PaymentData } from "./steps/payment-data.component";
+import { FormStepper } from "./stepper/stepper.component";
 import { checkoutPayment } from "dh-marvel/services/checkout/checkout.service";
-import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
+import { Comic as ComicType } from "types/comic.types";
 
 interface Props {
     comic: ComicType
@@ -62,7 +62,7 @@ const initialCheckoutData = {
     },
 }
 
-const FormManager = ({comic}: Props) => {
+export const FormManager: FC<Props> = ({comic}: Props) => {
 
     const [data, setData] = useState(initialData);    
     const handleData = (newData: any) => {
@@ -134,5 +134,3 @@ const FormManager = ({comic}: Props) => {
         </>
     )
 }
-
-export default FormManager;
