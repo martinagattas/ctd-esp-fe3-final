@@ -12,7 +12,7 @@ interface Props{
 
 export const Faq: FC<Props> = ( { faq }:Props ) => {
     return(
-        <Accordion key={faq.id}>
+        <Accordion>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel${faq.id}-content`}

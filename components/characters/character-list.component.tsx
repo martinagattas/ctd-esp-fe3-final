@@ -22,8 +22,8 @@ export const CharactersList: FC<Props> = ({ characters }: Props) => {
                 <Typography>Personajes</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                {characters.map((character) => (
-                    <Typography key={character.name}><Link href={`/personajes/${character.resourceURI.split('/').pop()}`}>{character.name}</Link></Typography>
+                {characters.map((character, index) => (
+                    <Typography key={index}><Link href={`/personajes/${character.resourceURI.split('/').pop()}`}>{character.name}</Link></Typography>
                 ))}
             </AccordionDetails>
         </Accordion>

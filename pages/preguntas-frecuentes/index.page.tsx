@@ -23,7 +23,7 @@ const FaqsPage: NextPage<Props> = ( { faqs }:Props ) => {
 
             <BodySingle title={"Preguntas frecuentes"}>
                 {faqs?.map((faq) => (
-                    <Faq faq={faq}></Faq>
+                    <Faq key={faq.id} faq={faq}></Faq>
                 ))}
             </BodySingle>
         </>
