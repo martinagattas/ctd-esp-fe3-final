@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import CustomInput from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -13,11 +12,10 @@ interface Props {
     data: any,
     updateData: (newData: any) => void,
     handleNextStep: () => void,
-    handlePrevStep: () => void,
-    activeStep: number
+    handlePrevStep: () => void
 }
 
-const DeliveryAddress = ({ data, updateData, handleNextStep, handlePrevStep, activeStep }:Props ) => {
+const DeliveryAddress = ({ data, updateData, handleNextStep, handlePrevStep }:Props ) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {

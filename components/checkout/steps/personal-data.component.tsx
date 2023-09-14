@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import CustomInput from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,11 +11,10 @@ import { ErrorMessage } from '@hookform/error-message';
 interface Props{
     data: any,
     updateData: (newData: any) => void,
-    handleNextStep: () => void,
-    activeStep: number
+    handleNextStep: () => void
 }
 
-const PersonalData = ({ data, updateData, handleNextStep, activeStep }:Props ) => {
+const PersonalData = ({ data, updateData, handleNextStep }:Props ) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {

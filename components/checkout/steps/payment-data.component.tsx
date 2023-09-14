@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import CustomInput from "../inputs/custom-input.components";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -8,19 +7,14 @@ import * as yup from "yup";
 import { schema } from "../../../components/checkout/rules/payment-data-rules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from '@hookform/error-message';
-import { useRouter } from "next/router";
 
 interface Props {
     data: any,
-    updateData: (newData: any) => void,
     handlePrevStep: () => void,
-    activeStep: number,
-    submitData: () => void
+    submitData: (data:any) => void
 }
 
-const PaymentData = ({ data, updateData, handlePrevStep, activeStep, submitData }: Props) => {
-    const router = useRouter();
-
+const PaymentData = ({ data, handlePrevStep, submitData }: Props) => {
     type DataForm = yup.InferType<typeof schema>
 
     const {
@@ -33,8 +27,7 @@ const PaymentData = ({ data, updateData, handlePrevStep, activeStep, submitData 
 
     const onSubmit = async (data: any) => {
         const dataValues = getValues();
-        updateData({ paymentData: dataValues });
-        submitData();
+        submitData(dataValues);
     };
 
     return (

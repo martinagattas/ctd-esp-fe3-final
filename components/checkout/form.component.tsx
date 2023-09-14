@@ -3,10 +3,8 @@ import PersonalData from "./steps/personal-data.component";
 import DeliveryAddress from "./steps/delivery-address.component";
 import PaymentData from "./steps/payment-data.component";
 import FormStepper from "./stepper/stepper.component";
-import { useForm } from "react-hook-form";
 import { checkoutPayment } from "dh-marvel/services/checkout/checkout.service";
 import { Comic as ComicType } from "dh-marvel/features/comics/comic.types";
-import { Checkout } from "types/checkout.types";
 
 interface Props {
     comic: ComicType
@@ -66,9 +64,7 @@ const initialCheckoutData = {
 
 const FormManager = ({comic}: Props) => {
 
-    const [data, setData] = useState(initialData);
-    const [checkoutData, setCheckoutData] = useState<Checkout>(initialCheckoutData);
-
+    const [data, setData] = useState(initialData);    
     const handleData = (newData: any) => {
         setData((prevData) => ({ ...prevData, ...newData }));
     };
@@ -91,8 +87,8 @@ const FormManager = ({comic}: Props) => {
         }
     }
 
-    const submitData = async () => {
-        setCheckoutData({
+    const submitData = async ({paymentData}:any) => {
+        const checkoutData = {
             customer: {
                 name: data.personalData.name,
                 lastname: data.personalData.lastName,
@@ -106,35 +102,35 @@ const FormManager = ({comic}: Props) => {
                 },
             },
             card: {
-                number: data.paymentData.cardNumber,
-                cvc: data.paymentData.securityCode,
-                expDate: data.paymentData.expirationDate,
-                nameOnCard: data.paymentData.cardName,
+                number: paymentData.cardNumber,
+                cvc: paymentData.securityCode,
+                expDate: paymentData.expirationDate,
+                nameOnCard: paymentData.cardName,
             },
             order: {
                 name: comic.title,
                 image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
                 price: comic.price,
             },
-        })
+        }
 
         const response = await checkoutPayment(checkoutData);
         try{
             console.log('FINAL SUBMIT', response);
         } catch{
+            // agregar snackbar
             console.log('FINAL SUBMIT ERROR', response);
             console.log('ERROR', response.error);
             console.log('MESSAGE', response.message);
-            // agregar snackbar
         }
     }
 
     return(
         <>
             <FormStepper activeStep={activeStep}></FormStepper>
-            {activeStep === 0 && <PersonalData data={data.personalData} updateData={handleData} handleNextStep={() => handleNextStep()} activeStep={activeStep} />}
-            {activeStep === 1 && <DeliveryAddress data={data.deliveryAddress} updateData={handleData} handleNextStep={() => handleNextStep()} handlePrevStep={() => handlePrevStep()} activeStep={activeStep} />}
-            {activeStep === 2 && <PaymentData data={data.paymentData} updateData={handleData} handlePrevStep={() => handlePrevStep()} activeStep={activeStep} submitData={() => submitData()}/>}
+            {activeStep === 0 && <PersonalData data={data.personalData} updateData={handleData} handleNextStep={() => handleNextStep()}/>}
+            {activeStep === 1 && <DeliveryAddress data={data.deliveryAddress} updateData={handleData} handleNextStep={() => handleNextStep()} handlePrevStep={() => handlePrevStep()}/>}
+            {activeStep === 2 && <PaymentData data={data.paymentData} handlePrevStep={() => handlePrevStep()} submitData={(paymentData) => submitData({paymentData})}/>}
         </>
     )
 }
