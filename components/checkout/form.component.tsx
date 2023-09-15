@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
+import { Comic as ComicType } from "types/comic.types";
+import { checkoutPayment } from "dh-marvel/services/checkout/checkout.service";
+import { useRouter } from "next/router";
 import { PersonalData } from "./steps/personal-data.component";
 import { DeliveryAddress } from "./steps/delivery-address.component";
 import { PaymentData } from "./steps/payment-data.component";
 import { FormStepper } from "./stepper/stepper.component";
-import { checkoutPayment } from "dh-marvel/services/checkout/checkout.service";
-import { Comic as ComicType } from "types/comic.types";
+import SnackbarAlert from "../errors/snackbar-alert.components";
 
 interface Props {
     comic: ComicType
@@ -63,8 +65,10 @@ const initialCheckoutData = {
 }
 
 export const FormManager: FC<Props> = ({comic}: Props) => {
+    const router = useRouter();
 
-    const [data, setData] = useState(initialData);    
+    const [data, setData] = useState(initialData);
+
     const handleData = (newData: any) => {
         setData((prevData) => ({ ...prevData, ...newData }));
     };
@@ -86,6 +90,13 @@ export const FormManager: FC<Props> = ({comic}: Props) => {
             setActiveStep(activeStep - 1);
         }
     }
+
+    const [snackbar, setSnackbar] = useState(false);
+    const [snackbarError, setSnackbarError] = useState<string | undefined>(undefined);
+
+    const handleCloseSnackbar = () => {
+        setSnackbar(false);
+    };
 
     const submitData = async ({paymentData}:any) => {
         const checkoutData = {
@@ -115,22 +126,35 @@ export const FormManager: FC<Props> = ({comic}: Props) => {
         }
 
         const response = await checkoutPayment(checkoutData);
+
         try{
-            console.log('FINAL SUBMIT', response);
-        } catch{
-            // agregar snackbar
-            console.log('FINAL SUBMIT ERROR', response);
-            console.log('ERROR', response.error);
-            console.log('MESSAGE', response.message);
+            if(!response.error){
+                router.push('/confirmacion-compra');
+
+                const responseData = {
+                    customer: response.data.customer,
+                    order: response.data.order
+                }
+                const jsonData = JSON.stringify(responseData);
+
+                localStorage.setItem("checkoutdata", jsonData);
+            } else{
+                setSnackbarError(`${response.error}: ${response.message}`);
+                setSnackbar(true);
+            }
+        } catch(error: any){
+            setSnackbarError(`${response.error}: ${response.message}`);
+            setSnackbar(true);
         }
     }
 
     return(
         <>
+            <SnackbarAlert open={snackbar} onClose={handleCloseSnackbar} severity="error" error={snackbarError}/>
             <FormStepper activeStep={activeStep}></FormStepper>
-            {activeStep === 0 && <PersonalData data={data.personalData} updateData={handleData} handleNextStep={() => handleNextStep()}/>}
-            {activeStep === 1 && <DeliveryAddress data={data.deliveryAddress} updateData={handleData} handleNextStep={() => handleNextStep()} handlePrevStep={() => handlePrevStep()}/>}
-            {activeStep === 2 && <PaymentData data={data.paymentData} handlePrevStep={() => handlePrevStep()} submitData={(paymentData) => submitData({paymentData})}/>}
+            {activeStep === 0 && <PersonalData data={data.personalData} updateData={handleData} handleNextStep={() => handleNextStep()} />}
+            {activeStep === 1 && <DeliveryAddress data={data.deliveryAddress} updateData={handleData} handleNextStep={() => handleNextStep()} handlePrevStep={() => handlePrevStep()} />}
+            {activeStep === 2 && <PaymentData data={data.paymentData} handlePrevStep={() => handlePrevStep()} submitData={(paymentData) => submitData({ paymentData })} />}
         </>
     )
 }

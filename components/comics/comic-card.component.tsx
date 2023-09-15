@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Comic as ComicType } from "types/comic.types";
+import { getComic } from "dh-marvel/services/marvel/marvel.service";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,14 +14,30 @@ interface Props {
 }
 
 export const ComicCard: FC<Props> = ( {comic}:Props ) => {
+    const [stock, setStock] = useState(false);
+
+    const fetchStockData = async () => {
+        const response: ComicType = await getComic(comic.id);
+        const stockData = await response.stock;
+        setStock(stockData > 0 ? true : false);
+    };
+
+    useEffect(() => {
+        fetchStockData();
+    }, []);
+
     const router = useRouter();
 
     const handleDetail = () => {
         router.push(`/comics/${comic.id}`);
     }
 
-    const handleAddToCart = () => {
-        router.push(`/checkout/${comic.id}`);
+    const handleAddToCart = async () => {
+        if (stock){
+            router.push(`/checkout?comic=${comic.id}`);
+        } else{
+            router.push(`/comics/${comic.id}`);
+        }
     }
 
     return(
@@ -32,11 +49,11 @@ export const ComicCard: FC<Props> = ( {comic}:Props ) => {
                 image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
             />
             <CardContent sx={{padding: '8px'}}>
-                <Typography gutterBottom variant="h5" component="div" mb={0}>{comic.title}</Typography>
+                <Typography gutterBottom variant="h5" component="div" sx={{height: '100px'}} mb={0}>{comic.title}</Typography>
             </CardContent>
-            <CardActions>
+            <CardActions sx={{ justifyContent: 'space-between' }}>
                 <Button size="small" variant="outlined" onClick={handleDetail}>Ver detalle</Button>
-                <Button size="small" variant="contained" onClick={handleAddToCart}>Comprar</Button>
+                <Button size="small" variant="contained" onClick={handleAddToCart} disabled={!stock}>{stock ? 'Comprar' : 'Sin stock disponible'}</Button>
             </CardActions>
         </Card>
     )

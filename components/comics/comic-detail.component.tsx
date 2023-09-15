@@ -17,7 +17,7 @@ export const ComicDetail: FC<Props> = ({ comic }: Props) => {
     const router = useRouter();
 
     const handleAddToCart = () => {
-        router.push(`/checkout/${comic.id}`)
+        router.push(`/checkout?comic=${comic.id}`);
     }
 
     return (

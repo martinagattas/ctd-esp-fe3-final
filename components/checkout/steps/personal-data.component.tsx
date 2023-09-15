@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { CustomInput } from "../inputs/custom-input.components"; import Box from "@mui/material/Box";
+import { CustomInput } from "../inputs/custom-input.component"; import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
