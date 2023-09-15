@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { Comic as ComicType } from "types/comic.types";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
 import { ComicDetail } from "dh-marvel/components/comics/comic-detail.component";
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface Props{
     comic: ComicType
@@ -21,7 +23,12 @@ const ComicsPage: NextPage<Props> = ( { comic }:Props ) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
-            <ComicDetail comic={comic}></ComicDetail>
+            {comic ?
+                <ComicDetail comic={comic}></ComicDetail>
+                : <Box sx={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                <CircularProgress />
+            </Box>
+            }
         </>
     )
 }
