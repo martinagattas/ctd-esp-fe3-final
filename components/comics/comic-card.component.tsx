@@ -49,7 +49,7 @@ export const ComicCard: FC<Props> = ( {comic}:Props ) => {
                 image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
             />
             <CardContent sx={{padding: '8px'}}>
-                <Typography gutterBottom variant="h5" component="div" sx={{height: '100px'}} mb={0}>{comic.title}</Typography>
+                <Typography gutterBottom variant="h5" component="div" sx={{height: '120px'}} mb={0}>{comic.title}</Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-between' }}>
                 <Button size="small" variant="outlined" onClick={handleDetail}>Ver detalle</Button>

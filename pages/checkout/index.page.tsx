@@ -40,7 +40,8 @@ const Checkout = () => {
                 </>
                 : <Grid item xs={12} sx={{ padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <CircularProgress />
-                </Grid>}
+                </Grid>
+            }
         </Grid>
     )
 }

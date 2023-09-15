@@ -1,15 +1,34 @@
+import { useState } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
-import { Comic as ComicsType } from 'types/comic.types';
+import { Comics } from 'types/comic.types';
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { ComicsGrid } from 'dh-marvel/components/comics/comic-grid.component';
+import { useRouter } from 'next/router';
+import Pagination from '@mui/material/Pagination';
+import Box from '@mui/material/Box';
 
 interface Props{
-    comics: ComicsType[]
+    comics: Comics
 }
 
+const comicsPerPage = 12;
+
 const IndexPage: NextPage<Props> = ( {comics}:Props ) => {
+    const router = useRouter();
+    const [page, setPage] = useState<number>(1);
+
+    const totalComics = comics?.data.total || 0;
+    const totalPages = Math.ceil(totalComics / comicsPerPage);
+
+    const handleChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
+        setPage(newPage);
+        router.push(`?page=${newPage}`);
+    };
+
+    const showComics = comics?.data.results || [];
+
     return (
         <>
             <Head>
@@ -23,14 +42,22 @@ const IndexPage: NextPage<Props> = ( {comics}:Props ) => {
             </Head>
 
             <BodySingle title={"Marvel comics"}>
-                <ComicsGrid comics={comics}></ComicsGrid>
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                    <Pagination onChange={handleChange} count={totalPages} page={page} size="small" showFirstButton showLastButton color="primary" />
+                </Box>
+                <ComicsGrid comics={showComics}></ComicsGrid>
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px', marginBottom: '32px' }}>
+                    <Pagination onChange={handleChange} count={totalPages} page={page} size="small" showFirstButton showLastButton color="primary" />
+                </Box>
             </BodySingle>
         </>
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async ( { res, req } ) => {
-    const comics = await getComics(0, 12);
+export const getServerSideProps: GetServerSideProps = async ( { query, res } ) => {
+    const page = parseInt(query.page as string ?? '1') || 1;
+    const offset = (page - 1) * comicsPerPage;
+    const comics = await getComics(offset, comicsPerPage);
 
     res.setHeader(
         'Cache-Control',
@@ -39,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ( { res, req } ) => 
 
     return {
         props: {
-            comics: comics.data.results
+            comics
         }
     }
 }
