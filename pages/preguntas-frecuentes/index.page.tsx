@@ -44,10 +44,12 @@
 
 // export default FaqsPage;
 
-import React from 'react'
+import React from 'react';
 
-export const Vercel = () => {
-  return (
-    <div>Vercel</div>
-  )
-}
+const FaqsPage = () => {
+    return (
+        <div>Preguntas Frecuentes</div>
+    );
+};
+
+export default FaqsPage;
