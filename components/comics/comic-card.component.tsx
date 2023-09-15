@@ -15,18 +15,6 @@ interface Props {
 }
 
 export const ComicCard: FC<Props> = ( {comic}:Props ) => {
-    const [stock, setStock] = useState(false);
-
-    const fetchStockData = async () => {
-        const response: ComicType = await getComic(comic.id);
-        const stockData = await response.stock;
-        setStock(stockData > 0 ? true : false);
-    };
-
-    useEffect(() => {
-        fetchStockData();
-    }, []);
-
     const router = useRouter();
 
     const handleDetail = () => {
@@ -34,12 +22,8 @@ export const ComicCard: FC<Props> = ( {comic}:Props ) => {
     }
 
     const handleAddToCart = async () => {
-        if (stock){
-            router.push(`/checkout?comic=${comic.id}`);
-            setCookie("authorizedAccess", "true", 10);
-        } else{
-            router.push(`/comics/${comic.id}`);
-        }
+        router.push(`/checkout?comic=${comic.id}`);
+        setCookie("authorizedAccess", "true", 10);
     }
 
     return(
@@ -55,7 +39,7 @@ export const ComicCard: FC<Props> = ( {comic}:Props ) => {
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-between' }}>
                 <Button size="small" variant="outlined" onClick={handleDetail}>Ver detalle</Button>
-                <Button size="small" variant="contained" onClick={handleAddToCart} disabled={!stock}>{stock ? 'Comprar' : 'Sin stock disponible'}</Button>
+                <Button size="small" variant="contained" onClick={handleAddToCart}>Comprar</Button>
             </CardActions>
         </Card>
     )
