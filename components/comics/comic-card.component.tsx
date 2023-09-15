@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { setCookie } from "dh-marvel/services/cookies/cookies.service";
 
 interface Props {
     comic: ComicType
@@ -35,6 +36,7 @@ export const ComicCard: FC<Props> = ( {comic}:Props ) => {
     const handleAddToCart = async () => {
         if (stock){
             router.push(`/checkout?comic=${comic.id}`);
+            setCookie("authorizedAccess", "true", 10);
         } else{
             router.push(`/comics/${comic.id}`);
         }

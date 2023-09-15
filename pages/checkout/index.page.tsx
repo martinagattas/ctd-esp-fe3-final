@@ -7,6 +7,7 @@ import { CartDetail } from "dh-marvel/components/checkout/cart-detail.component"
 import { FormManager } from "dh-marvel/components/checkout/form.component";
 import Grid from '@mui/material/Grid';
 import CircularProgress from "@mui/material/CircularProgress";
+import { getCookie } from "dh-marvel/services/cookies/cookies.service";
 
 const Checkout = () => {
     const router = useRouter();
@@ -21,11 +22,13 @@ const Checkout = () => {
                 setComicData(data);
             });
         }
-    }, [comic]);
 
-    if (!comic) {
-        return 'No comics';
-    }
+        const authorizedAccess = getCookie("authorizedAccess");
+
+        if (!comic || !authorizedAccess) {
+            router.push('/');
+        }
+    }, [comic]);
 
     return (
         <Grid container sx={{ position: 'relative' }}>

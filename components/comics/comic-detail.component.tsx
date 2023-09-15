@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Image from "next/image";
+import { setCookie } from "dh-marvel/services/cookies/cookies.service";
 
 interface Props {
     comic: ComicType
@@ -18,6 +19,7 @@ export const ComicDetail: FC<Props> = ({ comic }: Props) => {
 
     const handleAddToCart = () => {
         router.push(`/checkout?comic=${comic.id}`);
+        setCookie("authorizedAccess", "true", 10);
     }
 
     return (
