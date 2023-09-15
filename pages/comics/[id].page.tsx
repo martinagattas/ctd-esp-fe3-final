@@ -12,9 +12,9 @@ const ComicsPage: NextPage<Props> = ( { comic }:Props ) => {
     return(
         <>
             <Head>
-                <title>{comic.title}</title>
-                <meta property="og:title" content={comic.title} key="title"></meta>
-                <meta name="description" content={comic.description} />
+                <title>{comic?.title}</title>
+                <meta property="og:title" content={comic?.title} key="title"></meta>
+                <meta name="description" content={comic?.description} />
                 <meta charSet="utf-8"/>
                 <meta name="Marvel, comics, comic, store, buy comics, comics store"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
