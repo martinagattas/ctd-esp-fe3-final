@@ -31,7 +31,7 @@ const Checkout = () => {
     }, [comic]);
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
             {comicData ?
                 <>
                     <Box sx={{ maxWidth: '500px', margin: '0 auto', marginBottom: '32px' }}>
