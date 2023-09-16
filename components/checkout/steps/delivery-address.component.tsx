@@ -35,7 +35,6 @@ export const DeliveryAddress: FC<Props> = ({ data, updateData, handleNextStep, h
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h5" mb={2}>Datos de entrega</Typography>
             <Box mb={2}>
                 <CustomInput
                     type="text"

@@ -5,7 +5,7 @@ import { Comic as ComicType } from "types/comic.types";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 import { CartDetail } from "dh-marvel/components/checkout/cart-detail.component";
 import { FormManager } from "dh-marvel/components/checkout/form.component";
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import CircularProgress from "@mui/material/CircularProgress";
 import { getCookie } from "dh-marvel/services/cookies/cookies.service";
 
@@ -31,21 +31,19 @@ const Checkout = () => {
     }, [comic]);
 
     return (
-        <Grid container sx={{ position: 'relative' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             {comicData ?
                 <>
-                    <Grid item xs={12} sm={6} sx={{ padding: '16px' }}>
+                    <Box sx={{ maxWidth: '500px', margin: '0 auto', marginBottom: '32px' }}>
                         <CartDetail comic={comicData}></CartDetail>
-                    </Grid>
-                    <Grid item xs={12} sm={6} sx={{ padding: '16px' }}>
+                    </Box>
+                    <Box sx={{ maxWidth: '500px', margin: '0 auto', }}>
                         <FormManager comic={comicData} />
-                    </Grid>
+                    </Box>
                 </>
-                : <Grid item xs={12} sx={{ padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <CircularProgress />
-                </Grid>
+                : <CircularProgress />
             }
-        </Grid>
+        </Box>
     )
 }
 

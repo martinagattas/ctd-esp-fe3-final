@@ -10,7 +10,7 @@ export const FormStepper = ({ activeStep }: { activeStep: number }) => {
     ];
 
     return (
-        <Stepper activeStep={activeStep} alternativeLabel>
+        <Stepper activeStep={activeStep} alternativeLabel sx={{marginBottom: '16px'}}>
             {steps.map((label) => (
                 <Step key={label}>
                     <StepLabel>{label}</StepLabel>

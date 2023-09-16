@@ -33,7 +33,6 @@ export const PersonalData: FC<Props> = ({ data, updateData, handleNextStep }:Pro
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h5" mb={2}>Datos personales</Typography>
             <Box mb={2}>
                 <CustomInput
                     type="text"
