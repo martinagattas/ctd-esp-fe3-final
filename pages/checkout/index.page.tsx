@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getComic } from "dh-marvel/services/marvel/marvel.service";
+import { getComicById } from "dh-marvel/services/comic/comic.service";
 import { Comic as ComicType } from "types/comic.types";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 import { CartDetail } from "dh-marvel/components/checkout/cart-detail.component";
@@ -18,7 +18,7 @@ const Checkout = () => {
         const id = parseInt(comic as string);
 
         if (comic) {
-            getComic(id).then((data) => {
+            getComicById(id).then((data) => {
                 setComicData(data);
             });
         }

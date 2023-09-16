@@ -1,7 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useRouter } from "next/router";
 import { Comic as ComicType } from "types/comic.types";
-import { getComic } from "dh-marvel/services/marvel/marvel.service";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';

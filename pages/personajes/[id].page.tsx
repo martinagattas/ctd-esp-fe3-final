@@ -9,7 +9,6 @@ interface Props {
 }
 
 const CharactersPage: NextPage<Props> = ({ character }: Props) => {
-    console.log('ACÁ', character);
     return (
         <>
             <Head>
